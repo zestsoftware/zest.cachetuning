@@ -14,7 +14,9 @@
     }
 
     $(document).ready(function() {
+    <tal:block tal:condition="tool/jq_replace_username">
 	replace_fullname();
+    </tal:block>
     });
 })(jQuery)
 </tal:block>
