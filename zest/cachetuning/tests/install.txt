@@ -1,0 +1,35 @@
+Install tests
+=============
+
+Those tests ensure the tool is present when installing the product and
+available in the control panel:
+
+    >>> self.login_as_manager()
+    >>> self.browser.getLink('Site Setup').click()
+
+
+The URL differs in Plone 3 and 4, but this should be ok to check we
+really are in the control panel:
+
+    >>> self.browser.url in ['http://nohost/plone/plone_control_panel',
+    ...                      'http://nohost/plone/@@overview-controlpanel']
+    True
+
+
+Our product is not yet available in the control panel:
+
+    >>> 'Cache tuning' in self.browser.contents
+    False
+
+
+Let's simply install it:
+
+    >>> self.addProduct('zest.cachetuning')
+
+    >>> self.browser.getLink('Site Setup').click()
+    >>> 'Cache tuning' in self.browser.contents
+    True
+
+    >>> self.browser.getLink('Cache tuning').click()
+    >>> self.browser.url
+    'http://nohost/plone/portal_zestcachetuning/edit'

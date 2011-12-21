@@ -7,7 +7,7 @@
             category="Products"
             condition_expr=""
             icon_expr="string:${portal_url}/pdf_icon.gif"
-            url_expr="string:${portal_url}/portal_zestcachetuning"
+            url_expr="string:${portal_url}/portal_zestcachetuning/edit"
             visible="True">
   <permission>Manage portal</permission>
  </configlet>
