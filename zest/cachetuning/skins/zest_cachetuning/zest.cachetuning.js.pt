@@ -1,9 +1,7 @@
+<tal:block tal:define="tool nocall: context/portal_zestcachetuning">
 (function($) {
     function replace_fullname() {
-	var username_holder = $('a#user-name span');
-	if (username_holder.length == 0) {
-	    username_holder = $('a#user-id');
-	}
+	var username_holder = $('<span tal:replace="tool/jq_replace_username_selector" />');
 
 	// We save the previous value.
 	var old_value = username_holder.html();
@@ -19,3 +17,4 @@
 	replace_fullname();
     });
 })(jQuery)
+</tal:block>
