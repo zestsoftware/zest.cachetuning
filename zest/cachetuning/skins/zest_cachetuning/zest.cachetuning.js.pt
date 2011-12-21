@@ -1,0 +1,21 @@
+(function($) {
+    function replace_fullname() {
+	var username_holder = $('a#user-name span');
+	if (username_holder.length == 0) {
+	    username_holder = $('a#user-id');
+	}
+
+	// We save the previous value.
+	var old_value = username_holder.html();
+	username_holder.load('@@zestcachetuning_get_username',
+			     function() {
+				 if (username_holder.html() == '') {
+				     username_holder.html(old_value);
+				 }
+			     });
+    }
+
+    $(document).ready(function() {
+	replace_fullname();
+    });
+})(jQuery)

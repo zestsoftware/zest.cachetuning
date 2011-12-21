@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<object name="portal_skins">
+ <object name="zest_cachetuning"
+    meta_type="Filesystem Directory View"
+    directory="zest.cachetuning:skins/zest_cachetuning"/>
+
+ <skin-path name="*">
+  <layer name="zest_cachetuning" />
+ </skin-path>
+</object>
