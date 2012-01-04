@@ -6,7 +6,57 @@ The Javascript file used by our tool content will depend on the settings of the 
     >>> self.login_as_manager()
     >>> self.addProduct('zest.cachetuning')
 
-1 - Replace username with Javascript:
+1 - Automatic JS rebuilding
+---------------------------
+
+When the settings for the product are saved, the compressed JS files
+are rebuilded.
+
+We first create a simple function that extracts all JS files registered
+in the page:
+
+    >>> import re
+    >>> def extract_js_files():
+    ...     self.browser.open('http://nohost/plone')
+    ...     exp = re.compile(r'(\w+)\.js')
+    ...     return sorted(exp.findall(self.browser.contents))
+
+    >>> before_saving = extract_js_files()
+
+We now save the tool:
+
+    >>> self.browser.open('http://nohost/plone/portal_zestcachetuning/edit')
+    >>> self.browser.getControl(name='form.button.save').click()
+
+The list of JS file is now different as the whole thing as been rebuilted:
+
+    >>> before_saving == extract_js_files()
+    False
+
+This only applis when debug mode is set in the portal_javascripts:
+
+    >>> portal_js = self.portal.portal_javascripts
+    >>> portal_js.getDebugMode()
+    False
+
+We now turn JS debug mode on, saving the tool will not make any change:
+
+    >>> portal_js.setDebugMode(True)
+    >>> before_saving = extract_js_files()
+
+    >>> self.browser.open('http://nohost/plone/portal_zestcachetuning/edit')
+    >>> self.browser.getControl(name='form.button.save').click()
+
+    >>> before_saving == extract_js_files()
+    True
+
+Back to the default mode, which will rebuild the compressed files:
+
+    >>> portal_js.setDebugMode(False)
+    >>> before_saving == extract_js_files()
+    False
+
+2 - Replace username with Javascript:
 -------------------------------------
 
 First, we'll simply disable this option:
