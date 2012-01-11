@@ -32,6 +32,27 @@ class TestCase(ptc.PloneTestCase):
             ptc.portal_owner,
             ptc.default_password)
 
+    def register_user(self, data):
+        self.browser.open('http://nohost/plone/')
+        self.browser.getLink('Register').click()
+        data['password_confirm'] = data['password']
+
+        for key, value in data.items():
+            try:
+                self.browser.getControl(name=key).value = value
+            except LookupError:
+                if key == 'password_confirm':
+                    # In Plone 4, password confirm is called password_ctl
+                    self.browser.getControl(name='form.password_ctl').value = value
+                else:
+                    # Plone 4, inputs are called 'form.xxx'
+                    self.browser.getControl(name='form.%s' % key).value = value
+
+        try:
+            self.browser.getControl(name='form.button.Register').click()
+        except LookupError:
+            self.browser.getControl(name='form.actions.register').click()           
+
     class layer(PloneSite):
         @classmethod
         def setUp(cls):

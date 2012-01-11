@@ -1,0 +1,46 @@
+Browser views tests
+===================
+
+    >>> self.login_as_manager()
+    >>> self.addProduct('zest.cachetuning')
+
+1 - View that generates the username
+------------------------------------
+
+The first (and only one currently) view to test is the one that is
+used to replace the username with Ajax.
+
+For anonymous users, it just returns an empty string:
+
+    >>> self.browser.open('http://nohost/plone/logout')
+    >>> self.browser.open('http://nohost/plone/@@zestcachetuning_get_username')
+    >>> self.browser.contents
+    ''
+
+It is the same thing for the default Zope administrator:
+
+    >>> self.login_as_manager()
+    >>> self.browser.open('http://nohost/plone/@@zestcachetuning_get_username')
+    >>> self.browser.contents
+    ''
+
+We have to register a "normal" user to get this view working. First
+we'll enable auto-registration:
+
+    >>> self.browser.open('http://nohost/plone/@@security-controlpanel')
+    >>> self.browser.getControl(name='form.enable_self_reg').value = True
+    >>> self.browser.getControl(name='form.enable_user_pwd_choice').value = True
+    >>> self.browser.getControl(name='form.actions.save').click()
+    >>> self.browser.open('http://nohost/plone/logout')
+
+And now we register our user:
+
+    >>> self.register_user(
+    ...     {'fullname': 'Mr. Full Name',
+    ...      'username': 'my_user',
+    ...      'email': 'user@example.org',
+    ...      'password': 'secret'})
+    >>> self.login_as_user('my_user', 'secret')
+    >>> self.browser.open('http://nohost/plone/@@zestcachetuning_get_username')
+    >>> self.browser.contents
+    'Mr. Full Name'

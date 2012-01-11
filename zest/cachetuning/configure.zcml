@@ -14,10 +14,9 @@
 
   <subscriber
       for="zest.cachetuning.tool.ICacheTuningTool
-           zope.app.event.interfaces.IObjectModifiedEvent"
+           zope.lifecycleevent.interfaces.IObjectModifiedEvent"
       handler=".events.rebuild_js"
       />
-
 
   <genericsetup:registerProfile
       name="default"

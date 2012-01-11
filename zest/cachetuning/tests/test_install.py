@@ -8,9 +8,6 @@ def test_suite():
         ztc.FunctionalDocFileSuite(
            'install.txt', package='zest.cachetuning.tests',
            test_class=TestCase),
-        ztc.FunctionalDocFileSuite(
-           'js_generation.txt', package='zest.cachetuning.tests',
-           test_class=TestCase),
         ])
 
 if __name__ == '__main__':

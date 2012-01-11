@@ -6,6 +6,7 @@ from Products.CMFCore.permissions import ModifyPortalContent
 from Products.ATContentTypes.content.document import ATDocument
 from Products.ATContentTypes.content.document import ATDocumentSchema
 from zope.interface import Interface, implements
+from Products.CMFCore.utils import getToolByName
 
 from zest.cachetuning import config
 from zest.cachetuning import ZestCacheTuningMessageFactory as _
@@ -30,7 +31,7 @@ cacheTuningToolSchema = ATDocumentSchema.copy() + atapi.Schema((
 
     atapi.StringField(
         name='jq_replace_username_selector',
-        default='a#user-name span',
+        default_method = 'default_js_query',
         widget = atapi.StringWidget(
             label=_(u'label_jq_replace_username_selector',
                     default=u'CSS query to select username'),
@@ -82,6 +83,16 @@ class CacheTuningTool(ImmutableId, ATDocument):
     security.declareProtected(ModifyPortalContent, 'reindexObjectSecurity')
     def reindexObjectSecurity(self, skip_self=False):
         pass
+
+    def default_js_query(self):
+        migration = getToolByName(self, 'portal_migration')
+        versions = migration.coreVersions()
+
+        plone_major_version = versions.get('Plone', '').split('.')[0]
+        if plone_major_version == '4':
+            return 'a#user-name'
+
+        return 'a#user-name span'
 
 
 atapi.registerType(CacheTuningTool, config.PROJECTNAME)

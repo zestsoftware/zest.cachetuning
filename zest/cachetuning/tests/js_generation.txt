@@ -18,8 +18,8 @@ in the page:
     >>> import re
     >>> def extract_js_files():
     ...     self.browser.open('http://nohost/plone')
-    ...     exp = re.compile(r'(\w+)\.js')
-    ...     return sorted(exp.findall(self.browser.contents))
+    ...     exp = re.compile(r'/((\w|-|\.)+)\.js')
+    ...     return [t[0] for t in sorted(exp.findall(self.browser.contents))]
 
     >>> before_saving = extract_js_files()
 
@@ -32,6 +32,8 @@ The list of JS file is now different as the whole thing as been rebuilted:
 
     >>> before_saving == extract_js_files()
     False
+
+    >>> before_saving
 
 This only applis when debug mode is set in the portal_javascripts:
 

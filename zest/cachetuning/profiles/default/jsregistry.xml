@@ -2,7 +2,7 @@
 <object name="portal_javascripts">
   <javascript cacheable="True"
               compression="none"
-              cookable="False"
+              cookable="True"
               enabled="True"
               expression=""
               id="zest.cachetuning.js"
