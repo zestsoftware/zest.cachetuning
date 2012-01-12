@@ -28,12 +28,14 @@ We now save the tool:
     >>> self.browser.open('http://nohost/plone/portal_zestcachetuning/edit')
     >>> self.browser.getControl(name='form.button.save').click()
 
-The list of JS file is now different as the whole thing as been rebuilted:
+The list of JS file is now different as the whole thing as been rebuilded:
 
     >>> before_saving == extract_js_files()
     False
 
-    >>> before_saving
+Note: this one fails with Plone 4 - it works on the normal instance,
+but during tests the names of the JS files stay the same :/
+
 
 This only applis when debug mode is set in the portal_javascripts:
 

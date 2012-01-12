@@ -7,6 +7,7 @@ def rebuild_js(context, event):
 
     if not portal_js.getDebugMode():
         portal_js.setDebugMode(True)
+        portal_js.cookResources()
         portal_js.setDebugMode(False)
 
     
