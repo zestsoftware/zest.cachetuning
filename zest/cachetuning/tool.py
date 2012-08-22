@@ -41,6 +41,20 @@ cacheTuningToolSchema = ATDocumentSchema.copy() + atapi.Schema((
             ),
         schemata='username',
         ),
+
+    atapi.StringField(
+        name='jq_replace_username_cookie',
+        default = 'zest.cachetuning.username',
+        widget = atapi.StringWidget(
+            label=_(u'label_jq_replace_username_cookie',
+                    default=u'Name of the cookie used to store the username'),
+            description=_(u'help_jq_replace_username_cookie',
+                          default=u'We store the username in a cookie so we ' +\
+                          'do not need to fetch it via Ajax.')
+            ),
+        schemata='username',
+        ),
+
     ))
 
 # Hides the default fields.
