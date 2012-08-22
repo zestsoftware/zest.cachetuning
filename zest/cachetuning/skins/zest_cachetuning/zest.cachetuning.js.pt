@@ -1,5 +1,5 @@
-<tal:block tal:define="tool nocall: context/portal_zestcachetuning"
-           tal:condition="tool">
+<tal:block tal:define="tool nocall: context/portal_zestcachetuning|nothing"
+           tal:condition="nocall: tool">
 (function($) {
     function replace_fullname() {
 	var username_holder = $('<span tal:replace="tool/jq_replace_username_selector" />');
