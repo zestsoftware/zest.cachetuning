@@ -16,3 +16,10 @@ load.
 If you use a custom theme, you can specify the query used to select
 the HTML node containing the username. This query is written in the
 classic CSS format.
+
+Extra libraries
+---------------
+
+The Javascript cookie setting is done using jquery.cookie.js, written
+by Klaus Hartl.
+The project is hosted at https://github.com/carhartl/jquery-cookie.
