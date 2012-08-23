@@ -4,6 +4,9 @@ Changelog
 0.2 (unreleased)
 ----------------
 
+- Store a cookie with the username so we don't have to make an Ajax
+  call everytime. [vincent]
+
 - Fixed an error happening with anonymous users. [vincent]
 
 

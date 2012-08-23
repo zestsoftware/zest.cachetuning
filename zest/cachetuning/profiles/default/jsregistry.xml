@@ -5,6 +5,13 @@
               cookable="True"
               enabled="True"
               expression=""
+              id="jquery.cookie.js"
+              inline="False" />
+  <javascript cacheable="True"
+              compression="none"
+              cookable="True"
+              enabled="True"
+              expression=""
               id="zest.cachetuning.js"
               inline="False" />
 </object>

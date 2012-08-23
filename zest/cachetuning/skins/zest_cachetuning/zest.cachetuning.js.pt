@@ -1,23 +1,40 @@
-<tal:block tal:define="tool nocall: context/portal_zestcachetuning|nothing"
+<tal:block tal:define="tool nocall: context/portal_zestcachetuning|nothing;
+                       isAnon context/@@plone_portal_state/anonymous"
            tal:condition="nocall: tool">
 (function($) {
+  <tal:block tal:condition="not: isAnon">
     function replace_fullname() {
 	var username_holder = $('<span tal:replace="tool/jq_replace_username_selector" />');
 
 	// We save the previous value.
 	var old_value = username_holder.html();
-	username_holder.load('@@zestcachetuning_get_username',
-			     function() {
+        var cookie_stored_value = $.cookie('<span tal:replace="tool/jq_replace_username_cookie" />');
+
+        if (cookie_stored_value) {
+          username_holder.html(cookie_stored_value);
+        } else {
+  	  username_holder.load('@@zestcachetuning_get_username',
+	  		     function() {
 				 if (username_holder.html() == '') {
-				     username_holder.html(old_value);
-				 }
+				    username_holder.html(old_value);
+				 } else {
+                                   $.cookie('<span tal:replace="tool/jq_replace_username_cookie" />', username_holder.html())
+                                 }
 			     });
+        }
     }
 
     $(document).ready(function() {
-    <tal:block tal:condition="tool/jq_replace_username">
+    <tal:block tal:condition="tool/jq_replace_username">      
 	replace_fullname();
     </tal:block>
     });
+  </tal:block>
+
+  <tal:block tal:condition="isAnon">
+    $(document).ready(function() {
+       $.removeCookie('<span tal:replace="tool/jq_replace_username_cookie" />');
+    });
+  </tal:block>
 })(jQuery)
 </tal:block>
