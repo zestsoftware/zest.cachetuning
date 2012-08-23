@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.2 (unreleased)
+0.2 (2012-08-23)
 ----------------
 
 - Store a cookie with the username so we don't have to make an Ajax
