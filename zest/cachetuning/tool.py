@@ -77,7 +77,7 @@ class CacheTuningTool(ImmutableId, ATDocument):
     security = ClassSecurityInfo()
     __implements__ = ()
     implements(ICacheTuningTool)
-    
+
     id = 'portal_zestcachetuning'
     typeDescription = "Configure Zest cache tuning"
     typeDescMsgId = 'description_edit_zestcachetuning_tool'

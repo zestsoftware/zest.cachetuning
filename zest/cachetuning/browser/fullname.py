@@ -3,7 +3,7 @@ from Products.CMFCore.utils import getToolByName
 
 class JqFullName(BrowserView):
     """ A simple class rendering the user's fullname.
-    It is called by a JS 
+    It is called by a JS
     """
 
     def __call__(self):

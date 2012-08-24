@@ -10,4 +10,4 @@ def rebuild_js(context, event):
         portal_js.cookResources()
         portal_js.setDebugMode(False)
 
-    
+

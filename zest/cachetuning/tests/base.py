@@ -51,7 +51,7 @@ class TestCase(ptc.PloneTestCase):
         try:
             self.browser.getControl(name='form.button.Register').click()
         except LookupError:
-            self.browser.getControl(name='form.actions.register').click()           
+            self.browser.getControl(name='form.actions.register').click()
 
     class layer(PloneSite):
         @classmethod
