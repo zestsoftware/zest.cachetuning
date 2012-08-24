@@ -1,5 +1,4 @@
 from AccessControl import ClassSecurityInfo
-from zope.interface import implements
 from Products.Archetypes import atapi
 from Products.CMFCore.utils import ImmutableId
 from Products.CMFCore.permissions import ModifyPortalContent

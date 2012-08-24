@@ -1,7 +1,3 @@
-import unittest
-
-#from zope.testing import doctestunit
-#from zope.component import testing
 from Testing import ZopeTestCase as ztc
 
 from Products.Five import fiveconfigure
@@ -11,11 +7,13 @@ ptc.setupPloneSite()
 
 try:
     from Testing.testbrowser import Browser
+    Browser  # pyflakes
 except ImportError:
     # Plone 3
     from Products.Five.testbrowser import Browser
 
 import zest.cachetuning
+
 
 class TestCase(ptc.PloneTestCase):
     browser = Browser()
