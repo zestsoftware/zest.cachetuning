@@ -1,0 +1,8 @@
+<tal:block tal:define="tool nocall: context/portal_zestcachetuning|nothing"
+           tal:condition="nocall: tool">
+(function($) {
+    $(document).ready(function() {
+       $.removeCookie('<span tal:replace="tool/jq_replace_username_cookie" />');
+    });
+})(jQuery)
+</tal:block>

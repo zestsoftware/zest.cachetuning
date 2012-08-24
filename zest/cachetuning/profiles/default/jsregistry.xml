@@ -11,7 +11,15 @@
               compression="none"
               cookable="True"
               enabled="True"
-              expression=""
-              id="zest.cachetuning.js"
+              expression="python: not context.restrictedTraverse('@@plone_portal_state').anonymous()"
+              id="zest.cachetuning_auth.js"
               inline="False" />
+  <javascript cacheable="True"
+              compression="none"
+              cookable="True"
+              enabled="True"
+              expression="python: context.restrictedTraverse('@@plone_portal_state').anonymous()"
+              id="zest.cachetuning_anon.js"
+              inline="False" />
+
 </object>
