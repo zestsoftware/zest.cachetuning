@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.3 (unreleased)
+0.3 (2012-08-24)
 ----------------
 
 - Splitted the zestcachetuning.js file so we have one version for
