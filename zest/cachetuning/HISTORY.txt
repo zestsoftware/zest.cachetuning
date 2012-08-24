@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.4 (unreleased)
+0.4 (2012-08-24)
 ----------------
 
 - Return userid when full name is empty. [vincent]
