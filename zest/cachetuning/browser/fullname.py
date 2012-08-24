@@ -16,10 +16,13 @@ class JqFullName(BrowserView):
         member_info = mtool.getMemberInfo(userid)
         # member_info is None if there's no Plone user object, as when
         # using OpenID.
-        if not member_info:
-            return userid
+        if member_info:
+            fullname = member_info.get('fullname', '')
+            plone_utils = getToolByName(self.context, 'plone_utils')
+            charset = plone_utils.getSiteEncoding()
+            decoded_fullname = fullname.decode(charset).strip()
 
-        fullname = member_info.get('fullname', '')
-        plone_utils = getToolByName(self.context, 'plone_utils')
-        charset = plone_utils.getSiteEncoding()
-        return fullname.decode(charset)
+            if decoded_fullname:
+                return decoded_fullname
+
+        return userid

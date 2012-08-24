@@ -17,12 +17,12 @@ For anonymous users, it just returns an empty string:
     >>> self.browser.contents
     ''
 
-It is the same thing for the default Zope administrator:
+By default, when a fullname is not set, we use the userid:
 
     >>> self.login_as_manager()
     >>> self.browser.open('http://nohost/plone/@@zestcachetuning_get_username')
     >>> self.browser.contents
-    ''
+    'portal_owner'
 
 We have to register a "normal" user to get this view working. First
 we'll enable auto-registration:
@@ -44,3 +44,28 @@ And now we register our user:
     >>> self.browser.open('http://nohost/plone/@@zestcachetuning_get_username')
     >>> self.browser.contents
     'Mr. Full Name'
+
+If the username is not set (or contains only white characters), we use
+the user id again.
+
+    >>> self.register_user(
+    ...     {'fullname': '',
+    ...      'username': 'my_empty_user',
+    ...      'email': 'user1@example.org',
+    ...      'password': 'secret'})
+    >>> self.login_as_user('my_empty_user', 'secret')
+    >>> self.browser.open('http://nohost/plone/@@zestcachetuning_get_username')
+    >>> self.browser.contents
+    'my_empty_user'
+
+We test with empty characters:
+
+    >>> self.register_user(
+    ...     {'fullname': '   ',
+    ...      'username': 'my_second_empty_user',
+    ...      'email': 'user2@example.org',
+    ...      'password': 'secret'})
+    >>> self.login_as_user('my_second_empty_user', 'secret')
+    >>> self.browser.open('http://nohost/plone/@@zestcachetuning_get_username')
+    >>> self.browser.contents
+    'my_second_empty_user'

@@ -31,6 +31,7 @@ class TestCase(ptc.PloneTestCase):
             ptc.default_password)
 
     def register_user(self, data):
+        self.browser.open('http://nohost/plone/logout')
         self.browser.open('http://nohost/plone/')
         self.browser.getLink('Register').click()
         data['password_confirm'] = data['password']
